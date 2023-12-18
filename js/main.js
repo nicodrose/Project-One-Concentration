@@ -1,3 +1,116 @@
+
+//* constants
+//need to include image urls for front and backs of the cards in the empty strings in the constants below
+const SOURCE_CARDS = [
+  {img: '', matched: false},
+  {img: '', matched: false},
+  {img: '', matched: false},
+  {img: '', matched: false},
+  {img: '', matched: false},
+  {img: '', matched: false},
+  {img: '', matched: false},
+  {img: '', matched: false}
+];
+const CARD_BACK = '';
+
+/*----- state variables -----*/
+let cards; // Array of 16 shuffled card objects
+let firstCard; // First card clicked (card object) or null
+let numBad; // Number of incorrect guesses
+let ignoreClicks;
+
+//* cached element references
+const msgEl = document.querySelector('h3');
+
+//* event listeners
+document.querySelector('main').addEventListener('click', handleChoice);
+
+
+//* functions
+init();
+
+// Job of init - initialize all state, then call render()
+function init() {
+  cards = getShuffledCards();
+  firstCard = null;
+  numBad = 0;
+  ignoreClicks = false;
+  render();
+}
+
+function render() {
+  cards.forEach(function(card, idx) {
+    const imgEl = document.getElementById(idx);
+    const src = (card.matched || card === firstCard) ? card.img : CARD_BACK;
+    imgEl.src = src;
+    // card.img will return the string of the card image from the constants SOURCE_CARDS
+  });
+  msgEl.innerHTML = 'Bad Count: ${numBad}';
+}
+
+function getShuffledCards() {
+  let tempCards = [];
+  let cards = [];
+  for (let card of SOURCE_CARDS) {
+    tempCards.push({...card}, {...card});
+  }
+  while (tempCards.length) {
+    let rndIdx = Math.floor(Math.random() * tempCards.length);
+    let card = tempCards.splice(rndIdx, 1)[0];
+    cards.push(card);
+  }
+  return cards;
+}
+
+ // In response to user action, update all impacted state, then call render()
+function handleChoice(evt) {
+  const cardIdx = parseInt(evt.target.id);
+  if (isNaN(cardIdx) || ignoreClicks) return;
+  const card = cards[cardIdx];
+  if (firstCard === null) {
+    if (firstCard.img === card.img) {
+      // correct match
+      firstCard.matched = card.matched = true;
+    } else {
+      numBad++;
+    }
+    firstCard =  null;
+  } else {
+    firstCard = card;
+  }
+  render();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 A.User Stories
 1. As a player, I want to be able to click on a timer button to begin the game and see how much time has passed / how much time I have.
 2. As a player, I want to be able to flip a card to see it's rank and have 5 seconds to consider it's location.
