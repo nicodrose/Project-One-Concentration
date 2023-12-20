@@ -21,15 +21,17 @@ let firstCard; // First card clicked (card object) or null
 let secondCard
 let numBad; // Number of guesses
 let ignoreClicks;
+let outcome;
 
 
 //* cached element references
 const msgEl = document.querySelector('h3');
-// const msgWinEl = document.querySelector('h2');
+const msgOutcomeEl = document.querySelector('h2');
+const playAgain = document.querySelector('button');
 
 //* event listeners
 document.querySelector('main').addEventListener('click', handleChoice);
-
+playAgain.addEventListener('click', init);
 
 //* functions
 init();
@@ -41,6 +43,7 @@ function init() {
   secondCard = null;
   numBad = 0;
   ignoreClicks = false;
+  outcome = null;
   render();
 }
 
@@ -50,7 +53,17 @@ function render() {
     const src = (card.matched || card === firstCard || card === secondCard) ? card.img : CARD_BACK;
     imgEl.src = src;
   });
-  msgEl.innerHTML = `Guesses: ${numBad}`;
+  msgEl.innerHTML = `Bad Guesses: ${numBad}`;
+  if (outcome === 'win') {
+    msgOutcomeEl.innerHTML = `You da winner!`;
+    playAgain.style.visibility = 'visible';
+  } else if (outcome === 'lose') {
+    msgOutcomeEl.innerHTML = 'Better luck next time :(';
+    playAgain.style.visibility = 'visible';
+  } else if (outcome === null) {
+    msgOutcomeEl.innerHTML = '';
+    playAgain.style.visibility = 'hidden';
+  }
 }
 
 function getShuffledCards() {
@@ -72,20 +85,28 @@ function handleChoice(evt) {
   if (isNaN(cardIdx) || ignoreClicks) return;
   const card = cards[cardIdx];
   if (firstCard) {
+    secondCard = card;
     if (secondCard) {
       if (firstCard.img === secondCard.img) {
         firstCard.matched = secondCard.matched = true;
-      }      
-      firstCard = null;
-      secondCard = null;
-    } else {
-      if (
-        isNaN(cardIdx) ||
-        ignoreClicks ||
-        cards[cardIdx] === firstCard) return;
-      secondCard = card;
-      numBad++
-    }
+        // console.log(firstCard);
+        firstCard = null;
+        secondCard = null;
+         if (cards.every(card => card.matched === true)) {
+          outcome = 'win';
+         }
+      } else {
+        numBad++
+        if (numBad >= 2) {
+          outcome = 'lose';
+        }
+        const timeout = setTimeout(function() {
+          firstCard = null;
+          secondCard = null;
+          render();
+        }, 500) 
+      }
+    } 
   } else {
     firstCard = card;
   }
