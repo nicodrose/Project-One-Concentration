@@ -24,7 +24,8 @@ let ignoreClicks;
 
 
 //* cached element references
-const msgEl = document.querySelector('h2');
+const msgEl = document.querySelector('h3');
+// const msgWinEl = document.querySelector('h2');
 
 //* event listeners
 document.querySelector('main').addEventListener('click', handleChoice);

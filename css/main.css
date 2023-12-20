@@ -47,6 +47,13 @@
     color: darkslategray;
     letter-spacing: 1vmin;
   }
+
+  h3 {
+    margin-top: 5px;
+    font-size: 4vmin;
+    color: darkslategray;
+    letter-spacing: 1vmin;
+  }
   
   button {
     margin-top: 2px;
