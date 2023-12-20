@@ -18,11 +18,10 @@ const CARD_BACK = 'css/card-library/images/backs/red.svg';
 /*----- state variables -----*/
 let cards; // Array of 16 shuffled card objects
 let firstCard; // First card clicked (card object) or null
-let secondCard
+let secondCard // Second card clicked
 let numBad; // Number of guesses
 let ignoreClicks;
-let outcome;
-
+let outcome; 
 
 //* cached element references
 const msgEl = document.querySelector('h3');
@@ -35,7 +34,6 @@ playAgain.addEventListener('click', init);
 
 //* functions
 init();
-
 
 function init() {
   cards = getShuffledCards();
@@ -89,7 +87,6 @@ function handleChoice(evt) {
     if (secondCard) {
       if (firstCard.img === secondCard.img) {
         firstCard.matched = secondCard.matched = true;
-        // console.log(firstCard);
         firstCard = null;
         secondCard = null;
          if (cards.every(card => card.matched === true)) {
