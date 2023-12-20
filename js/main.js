@@ -97,7 +97,7 @@ function handleChoice(evt) {
          }
       } else {
         numBad++
-        if (numBad >= 2) {
+        if (numBad >= 25) {
           outcome = 'lose';
         }
         const timeout = setTimeout(function() {
