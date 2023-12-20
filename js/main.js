@@ -19,7 +19,7 @@ const CARD_BACK = 'css/card-library/images/backs/red.svg';
 let cards; // Array of 16 shuffled card objects
 let firstCard; // First card clicked (card object) or null
 let secondCard
-let numBad; // Number of incorrect guesses
+let numBad; // Number of guesses
 let ignoreClicks;
 
 
