@@ -24,7 +24,7 @@ let ignoreClicks;
 
 
 //* cached element references
-const msgEl = document.querySelector('h3');
+const msgEl = document.querySelector('h2');
 
 //* event listeners
 document.querySelector('main').addEventListener('click', handleChoice);
@@ -49,7 +49,7 @@ function render() {
     const src = (card.matched || card === firstCard || card === secondCard) ? card.img : CARD_BACK;
     imgEl.src = src;
   });
-  msgEl.innerHTML = `Wrong Guess Count: ${numBad}`;
+  msgEl.innerHTML = `Guesses: ${numBad}`;
 }
 
 function getShuffledCards() {
