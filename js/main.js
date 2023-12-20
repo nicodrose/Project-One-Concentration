@@ -1,23 +1,24 @@
 
 const SOURCE_CARDS = [
-  { img: 'https://i.imgur.com/QfBgEMw.jpg', matched: false },
-  { img: 'https://i.imgur.com/QB5nIq1.jpg', matched: false },
-  { img: 'https://i.imgur.com/gcMXISM.jpg', matched: false },
-  { img: 'https://i.imgur.com/rYZZqG1.jpg', matched: false },
-  { img: 'https://i.imgur.com/8lNJKun.jpg', matched: false },
-  { img: 'https://i.imgur.com/ORkhI77.jpg', matched: false },
-  { img: 'https://i.imgur.com/oRqfOar.jpg', matched: false },
-  { img: 'https://i.imgur.com/vuFhVHk.jpg', matched: false },
-  { img: 'https://i.imgur.com/YagzY3j.jpg', matched: false },
-  { img: 'https://i.imgur.com/UkWIeAv.jpg', matched: false },
-  { img: 'https://i.imgur.com/vkJmw0D.jpg', matched: false },
-  { img: 'https://i.imgur.com/3tEibUk.jpg', matched: false }
+  { img: 'css/card-library/images/diamonds/diamonds-r02.svg', matched: false },
+  { img: 'css/card-library/images/diamonds/diamonds-r03.svg', matched: false },
+  { img: 'css/card-library/images/diamonds/diamonds-r04.svg', matched: false },
+  { img: 'css/card-library/images/diamonds/diamonds-r05.svg', matched: false },
+  { img: 'css/card-library/images/diamonds/diamonds-r06.svg', matched: false },
+  { img: 'css/card-library/images/diamonds/diamonds-r07.svg', matched: false },
+  { img: 'css/card-library/images/diamonds/diamonds-r08.svg', matched: false },
+  { img: 'css/card-library/images/diamonds/diamonds-r09.svg', matched: false },
+  { img: 'css/card-library/images/diamonds/diamonds-r10.svg', matched: false },
+  { img: 'css/card-library/images/diamonds/diamonds-J.svg', matched: false },
+  { img: 'css/card-library/images/diamonds/diamonds-Q.svg', matched: false },
+  { img: 'css/card-library/images/diamonds/diamonds-K.svg', matched: false }
 ];
-const CARD_BACK = 'https://i.imgur.com/CMVQ3mc.png';
+const CARD_BACK = 'css/card-library/images/backs/red.svg';
 
 /*----- state variables -----*/
 let cards; // Array of 16 shuffled card objects
 let firstCard; // First card clicked (card object) or null
+let secondCard
 let numBad; // Number of incorrect guesses
 let ignoreClicks;
 
@@ -36,6 +37,7 @@ init();
 function init() {
   cards = getShuffledCards();
   firstCard = null;
+  secondCard = null;
   numBad = 0;
   ignoreClicks = false;
   render();
@@ -44,7 +46,7 @@ function init() {
 function render() {
   cards.forEach(function(card, idx) {
     const imgEl = document.getElementById(idx);
-    const src = (card.matched || card === firstCard) ? card.img : CARD_BACK;
+    const src = (card.matched || card === firstCard || card === secondCard) ? card.img : CARD_BACK;
     imgEl.src = src;
   });
   msgEl.innerHTML = `Wrong Guess Count: ${numBad}`;
@@ -69,12 +71,20 @@ function handleChoice(evt) {
   if (isNaN(cardIdx) || ignoreClicks) return;
   const card = cards[cardIdx];
   if (firstCard) {
-    if (firstCard.img === card.img) {
-      firstCard.matched = card.matched = true;
+    if (secondCard) {
+      if (firstCard.img === secondCard.img) {
+        firstCard.matched = secondCard.matched = true;
+      }      
+      firstCard = null;
+      secondCard = null;
     } else {
-      numBad++;
+      if (
+        isNaN(cardIdx) ||
+        ignoreClicks ||
+        cards[cardIdx] === firstCard) return;
+      secondCard = card;
+      numBad++
     }
-    firstCard = null;
   } else {
     firstCard = card;
   }
