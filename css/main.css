@@ -5,7 +5,7 @@
   
   h1 {
     font-size: 5vmin;
-    color: darkgrey;
+    color: darkslategray;
     letter-spacing: 1vmin;
   }
 
@@ -16,6 +16,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: lightblue;
   }
   
   /* .card-container {
@@ -37,12 +38,13 @@
     width: 100%;
     border-radius: 2vmin;
     padding: 5px;
+    background-color: white;
   }
   
   h2 {
     margin-top: 5px;
     font-size: 5vmin;
-    color: darkgrey;
+    color: darkslategray;
     letter-spacing: 1vmin;
   }
   
@@ -62,3 +64,4 @@
     color: white;
     background-color: darkgrey;
   }
+  
