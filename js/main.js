@@ -1,4 +1,4 @@
-
+/*----- constants -----*/
 const SOURCE_CARDS = [
   { img: 'css/card-library/images/diamonds/diamonds-r02.svg', matched: false },
   { img: 'css/card-library/images/diamonds/diamonds-r03.svg', matched: false },
@@ -16,30 +16,30 @@ const SOURCE_CARDS = [
 const CARD_BACK = 'css/card-library/images/backs/red.svg';
 
 /*----- state variables -----*/
-let cards; // Array of 16 shuffled card objects
-let firstCard; // First card clicked (card object) or null
-let secondCard // Second card clicked
-let numBad; // Number of guesses
+let cards; 
+let firstCard; 
+let secondCard 
+let numBad; 
 let ignoreClicks;
 let outcome; 
 
-//* cached element references
+/*----- cached element references -----*/
 const msgEl = document.querySelector('h3');
 const msgOutcomeEl = document.querySelector('h2');
 const playAgain = document.querySelector('button');
 
-//* event listeners
+/*----- event listeners -----*/
 document.querySelector('main').addEventListener('click', handleChoice);
 playAgain.addEventListener('click', init);
 
-//* functions
+/*----- functions -----*/
 init();
 
 function init() {
   cards = getShuffledCards();
   firstCard = null;
   secondCard = null;
-  numBad = 0;
+  numBad = 25;
   ignoreClicks = false;
   outcome = null;
   render();
@@ -51,7 +51,7 @@ function render() {
     const src = (card.matched || card === firstCard || card === secondCard) ? card.img : CARD_BACK;
     imgEl.src = src;
   });
-  msgEl.innerHTML = `Bad Guesses: ${numBad}`;
+  msgEl.innerHTML = `Bad Guesses Left: ${numBad}`;
   if (outcome === 'win') {
     msgOutcomeEl.innerHTML = `You da winner!`;
     playAgain.style.visibility = 'visible';
@@ -93,8 +93,8 @@ function handleChoice(evt) {
           outcome = 'win';
          }
       } else {
-        numBad++
-        if (numBad >= 25) {
+        numBad--
+        if (numBad <= 0) {
           outcome = 'lose';
         }
         const timeout = setTimeout(function() {
