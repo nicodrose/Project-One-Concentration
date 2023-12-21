@@ -24,8 +24,8 @@ let ignoreClicks;
 let outcome; 
 
 /*----- cached element references -----*/
-const msgEl = document.querySelector('h3');
-const msgOutcomeEl = document.querySelector('h2');
+const msgEl = document.querySelector('h2');
+const msgOutcomeEl = document.querySelector('h3');
 const playAgain = document.querySelector('button');
 
 /*----- event listeners -----*/
