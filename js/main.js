@@ -1,5 +1,5 @@
 /*----- constants -----*/
-const SOURCE_CARDS = [
+const CARD_FRONTS = [
   { img: 'css/card-library/images/diamonds/diamonds-r02.svg', matched: false },
   { img: 'css/card-library/images/diamonds/diamonds-r03.svg', matched: false },
   { img: 'css/card-library/images/diamonds/diamonds-r04.svg', matched: false },
@@ -13,7 +13,7 @@ const SOURCE_CARDS = [
   { img: 'css/card-library/images/diamonds/diamonds-Q.svg', matched: false },
   { img: 'css/card-library/images/diamonds/diamonds-K.svg', matched: false }
 ];
-const CARD_BACK = 'css/card-library/images/backs/red.svg';
+const BACK_RED = 'css/card-library/images/backs/red.svg';
 
 /*----- state variables -----*/
 let cards; 
@@ -48,7 +48,7 @@ function init() {
 function render() {
   cards.forEach(function(card, idx) {
     const imgEl = document.getElementById(idx);
-    const src = (card.matched || card === firstCard || card === secondCard) ? card.img : CARD_BACK;
+    const src = (card.matched || card === firstCard || card === secondCard) ? card.img : BACK_RED;
     imgEl.src = src;
   });
   msgEl.innerHTML = `Bad Guesses Left: ${numBad}`;
@@ -65,14 +65,14 @@ function render() {
 }
 
 function getShuffledCards() {
-  let tempCards = [];
+  let shuffleCards = [];
   let cards = [];
-  for (let card of SOURCE_CARDS) {
-    tempCards.push({ ...card }, { ...card });
+  for (let card of CARD_FRONTS) {
+    shuffleCards.push({ ...card }, { ...card });
   }
-  while (tempCards.length) {
-    let rndIdx = Math.floor(Math.random() * tempCards.length);
-    let card = tempCards.splice(rndIdx, 1)[0];
+  while (shuffleCards.length) {
+    let rndIdx = Math.floor(Math.random() * shuffleCards.length);
+    let card = shuffleCards.splice(rndIdx, 1)[0];
     cards.push(card);
   }
   return cards;
