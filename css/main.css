@@ -20,14 +20,14 @@ h1 {
 }
 
 h2 {
-  margin: 5px 0px 5px 0px;
+  margin-top: 5px;
   font-size: 5vmin;
   color: darkslategray;
   letter-spacing: 1vmin;
 }
 
 h3 {
-  margin: 5px 0px 5px 0px;
+  margin-top: 5px;
   height: 20px;
   font-size: 4vmin;
   color: darkslategray;
@@ -37,14 +37,13 @@ h3 {
 main {
   display: grid;
   grid-template-columns: repeat(6, 10vmin);
-  grid-template-rows: repeat(5, 10vmin);
+  grid-template-rows: repeat(4, 10vmin);
   gap: 5vmin;
   margin: 10px 0px 5px 0px;
 }
 
 img {
   width: 100%;
-  border: 5px;
   border-radius: 2vmin;
   padding: 5px;
   background-color: white;

@@ -1,5 +1,5 @@
 /*----- constants -----*/
-const CARD_FRONTS = [
+const SOURCE_CARDS = [
   { img: 'css/card-library/images/diamonds/diamonds-r02.svg', matched: false },
   { img: 'css/card-library/images/diamonds/diamonds-r03.svg', matched: false },
   { img: 'css/card-library/images/diamonds/diamonds-r04.svg', matched: false },
@@ -13,7 +13,7 @@ const CARD_FRONTS = [
   { img: 'css/card-library/images/diamonds/diamonds-Q.svg', matched: false },
   { img: 'css/card-library/images/diamonds/diamonds-K.svg', matched: false }
 ];
-const BACK_RED = 'css/card-library/images/backs/red.svg';
+const CARD_BACK = 'css/card-library/images/backs/red.svg';
 
 /*----- state variables -----*/
 let cards; 
@@ -48,7 +48,7 @@ function init() {
 function render() {
   cards.forEach(function(card, idx) {
     const imgEl = document.getElementById(idx);
-    const src = (card.matched || card === firstCard || card === secondCard) ? card.img : BACK_RED;
+    const src = (card.matched || card === firstCard || card === secondCard) ? card.img : CARD_BACK;
     imgEl.src = src;
   });
   msgEl.innerHTML = `Bad Guesses Left: ${numBad}`;
@@ -56,7 +56,7 @@ function render() {
     msgOutcomeEl.innerHTML = `You Da Vinner!`;
     playAgain.style.visibility = 'visible';
   } else if (outcome === 'lose') {
-    msgOutcomeEl.innerHTML = 'You Need Some Practice...';
+    msgOutcomeEl.innerHTML = 'You Need Some Practice';
     playAgain.style.visibility = 'visible';
   } else if (outcome === null) {
     msgOutcomeEl.innerHTML = '';
@@ -65,14 +65,14 @@ function render() {
 }
 
 function getShuffledCards() {
-  let shuffleCards = [];
+  let tempCards = [];
   let cards = [];
-  for (let card of CARD_FRONTS) {
-    shuffleCards.push({ ...card }, { ...card });
+  for (let card of SOURCE_CARDS) {
+    tempCards.push({ ...card }, { ...card });
   }
-  while (shuffleCards.length) {
-    let rndIdx = Math.floor(Math.random() * shuffleCards.length);
-    let card = shuffleCards.splice(rndIdx, 1)[0];
+  while (tempCards.length) {
+    let rndIdx = Math.floor(Math.random() * tempCards.length);
+    let card = tempCards.splice(rndIdx, 1)[0];
     cards.push(card);
   }
   return cards;
