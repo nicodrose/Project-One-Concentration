@@ -21,15 +21,15 @@ h1 {
 
 h2 {
   margin: 5px 0px 5px 0px;
-  font-size: 5vmin;
+  font-size: 4vmin;
   color: darkslategray;
   letter-spacing: 1vmin;
 }
 
 h3 {
   margin: 5px 0px 5px 0px;
-  height: 20px;
-  font-size: 4vmin;
+  height: 25px;
+  font-size: 3vmin;
   color: darkslategray;
   letter-spacing: 1vmin;
 }
@@ -53,7 +53,7 @@ img {
 button {
   margin-top: 5px;
   margin-bottom: 8px;
-  font-size: 4vmin;
+  font-size: 3vmin;
   color: white;
   letter-spacing: 1vmin;
   background-color: black;
