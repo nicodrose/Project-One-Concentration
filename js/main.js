@@ -53,10 +53,10 @@ function render() {
   });
   msgEl.innerHTML = `Bad Guesses Left: ${numBad}`;
   if (outcome === 'win') {
-    msgOutcomeEl.innerHTML = `You da winner!`;
+    msgOutcomeEl.innerHTML = `You Da Vinner!`;
     playAgain.style.visibility = 'visible';
   } else if (outcome === 'lose') {
-    msgOutcomeEl.innerHTML = 'Better luck next time :(';
+    msgOutcomeEl.innerHTML = 'You Need Some Practice...';
     playAgain.style.visibility = 'visible';
   } else if (outcome === null) {
     msgOutcomeEl.innerHTML = '';
